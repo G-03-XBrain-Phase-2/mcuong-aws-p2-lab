@@ -101,7 +101,17 @@ Sau khi hoàn thành kiểm thử, em đã tiến hành dọn dẹp sạch sẽ 
 terraform destroy -var-file="secrets.tfvars" -auto-approve
 ```
 
-![Minh chứng 4 - Terraform Destroy thành công](public/terraformdestroy.png)---
+![Minh chứng 4 - Terraform Destroy thành công](public/terraformdestroy.png)
+
+---
+
+### Evidence 5: Tính tái lập cao (Reproducible) trên máy tính khác
+
+Để kiểm chứng tính độc lập môi trường và khả năng chạy tự động 1-Click ở bất kỳ đâu, mã nguồn này đã được chạy thử từ đầu trên máy tính của bạn **Nguyễn Hoàng Sơn**. Kết quả cụm K8s và ứng dụng React được khởi tạo tự động thành công 100% với cấu hình giống hệt.
+
+![Minh chứng 5 - Dựng lại từ đầu thành công trên máy bạn Nguyễn Hoàng Sơn](public/reproducible.jpg)
+
+---
 
 ## IV. ĐÁNH GIÁ
 
