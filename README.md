@@ -12,13 +12,11 @@ Báo cáo dưới đây trình bày chi tiết các quyết định thiết kế
 
 ---
 
-## I. SƠ ĐỒ KIẾN TRÚC HỆ THỐNG (ARCHITECTURE DIAGRAM)
+## I. SƠ ĐỒ KIẾN TRÚC HỆ THỐNG
 
 Dưới đây là sơ đồ luồng traffic từ người dùng qua ALB và cấu trúc quản lý hạ tầng bằng Terraform do em thiết kế:
 
-![Sơ đồ kiến trúc hệ thống](diagram_architect.png)
-
----
+![Sơ đồ kiến trúc hệ thống](diagram_architect.png)---
 
 ## II. GIẢI TRÌNH CÁC QUYẾT ĐỊNH THIẾT KẾ (TỰ DO QUYẾT ĐỊNH)
 
@@ -74,7 +72,7 @@ Em đã chạy lệnh khởi động duy nhất từ thư mục sạch:
 terraform apply -var-file="secrets.tfvars" -auto-approve
 ```
 
-![Minh chứng 1 - Terraform Apply thành công](public/terraformapply.png)---
+![Minh chứng 1 - Terraform Apply thành công](public/terraformapply.png)\---
 
 ### Evidence 2: Xác nhận các Pod ứng dụng chạy trong cụm K8s (EC2 Host)
 
@@ -85,13 +83,13 @@ sudo k3s kubectl get pods -o wide
 sudo k3s kubectl get services -o wide
 ```
 
-![Minh chứng 2 - Trạng thái Pods và Services trong cụm K3s](public/podservicestatus.png)---
+![Minh chứng 2 - Trạng thái Pods và Services trong cụm K3s](public/podservicestatus.png)\---
 
 ### Evidence 3: Truy cập ứng dụng thành công qua URL của AWS ALB
 
 Em truy cập vào địa chỉ DNS của Application Load Balancer để kiểm tra tính năng định tuyến tải từ Internet vào K8s.
 
-![Minh chứng 3 - Truy cập trình duyệt thông qua AWS ALB](public/albhealth.png)---
+![Minh chứng 3 - Truy cập trình duyệt thông qua AWS ALB](public/albhealth.png)\---
 
 ### Evidence 4: Dọn dẹp tài nguyên (Terraform Destroy)
 
@@ -101,17 +99,13 @@ Sau khi hoàn thành kiểm thử, em đã tiến hành dọn dẹp sạch sẽ 
 terraform destroy -var-file="secrets.tfvars" -auto-approve
 ```
 
-![Minh chứng 4 - Terraform Destroy thành công](public/terraformdestroy.png)
-
----
+![Minh chứng 4 - Terraform Destroy thành công](public/terraformdestroy.png)---
 
 ### Evidence 5: Tính tái lập cao (Reproducible) trên máy tính khác
 
 Để kiểm chứng tính độc lập môi trường và khả năng chạy tự động 1-Click ở bất kỳ đâu, mã nguồn này đã được chạy thử từ đầu trên máy tính của bạn **Nguyễn Hoàng Sơn**. Kết quả cụm K8s và ứng dụng React được khởi tạo tự động thành công 100% với cấu hình giống hệt.
 
-![Minh chứng 5 - Dựng lại từ đầu thành công trên máy bạn Nguyễn Hoàng Sơn](public/reproducible.jpg)
-
----
+![Minh chứng 5 - Dựng lại từ đầu thành công trên máy bạn Nguyễn Hoàng Sơn](public/reproducible.jpg)---
 
 ## IV. ĐÁNH GIÁ
 
