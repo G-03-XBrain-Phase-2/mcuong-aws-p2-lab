@@ -58,7 +58,6 @@ Dưới đây là các quyết định thiết kế và lựa chọn công ngh�
      - `variables.tf`: Quản lý các tham số cấu hình (AMI, region, instance_type, react_image...).
      - `main.tf`: Chứa toàn bộ logic dựng VPC, Security Group, EC2, ALB, K3s wait ping, Deployment và Service K8s.
      - `outputs.tf`: Trả về URL của ALB và lệnh SSH vào EC2 sau khi apply thành công.
-     - `secrets.tfvars`: File lưu trữ các thông tin bảo mật (AWS access/secret keys) của deployer.
 
 ---
 
@@ -66,10 +65,10 @@ Dưới đây là các quyết định thiết kế và lựa chọn công ngh�
 
 ### Evidence 1: Lệnh khởi tạo hạ tầng tự động (1-Click Apply)
 
-Em đã chạy lệnh khởi động duy nhất từ thư mục sạch:
+Em đã xây dựng file script tự động `./deploy.sh` để khởi chạy từ thư mục sạch:
 
 ```bash
-terraform apply -var-file="secrets.tfvars" -auto-approve
+./deploy.sh
 ```
 
 ![Minh chứng 1 - Terraform Apply thành công](public/terraformapply.png)\---
@@ -93,10 +92,10 @@ Em truy cập vào địa chỉ DNS của Application Load Balancer để kiểm
 
 ### Evidence 4: Dọn dẹp tài nguyên (Terraform Destroy)
 
-Sau khi hoàn thành kiểm thử, em đã tiến hành dọn dẹp sạch sẽ tài nguyên trên cloud để tránh phát sinh chi phí bằng lệnh:
+Sau khi hoàn thành kiểm thử, em đã tiến hành dọn dẹp sạch sẽ tài nguyên trên cloud bằng script tự động để tránh phát sinh chi phí:
 
 ```bash
-terraform destroy -var-file="secrets.tfvars" -auto-approve
+./destroy.sh
 ```
 
 ![Minh chứng 4 - Terraform Destroy thành công](public/terraformdestroy.png)---
