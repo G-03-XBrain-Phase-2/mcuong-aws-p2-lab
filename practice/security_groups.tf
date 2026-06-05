@@ -3,7 +3,8 @@ data "http" "myip" {
 }
 
 locals {
-  my_ip = "${chomp(data.http.myip.response_body)}/32"
+  my_ip      = "${chomp(data.http.myip.response_body)}/32"
+  is_windows = substr(pathexpand("~"), 0, 1) == "/" ? false : true
 }
 
 resource "aws_security_group" "cdo-03-alb-sg" {

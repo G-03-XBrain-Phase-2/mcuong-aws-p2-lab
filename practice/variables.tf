@@ -21,7 +21,7 @@ variable "group_id" {
 
 variable "instance_type" {
   type        = string
-  default     = "c7i-flex.large"
+  default     = "t3.small"
   description = "Instance Type cua EC2"
 }
 

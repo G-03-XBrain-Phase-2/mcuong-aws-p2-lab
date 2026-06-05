@@ -4,15 +4,8 @@ resource "terraform_data" "wait_for_k3s" {
   triggers_replace = aws_instance.cdo-03-instance.id
 
   provisioner "local-exec" {
-    command = <<EOT
-      echo "Waiting for K3s API Server to be ready at https://${aws_instance.cdo-03-instance.public_ip}:6443 ..."
-      until curl -k -s https://${aws_instance.cdo-03-instance.public_ip}:6443/ping | grep -q "pong"; do
-        sleep 5
-      done
-      echo "K3s API Server port is open! Waiting 15 seconds for API groups to fully initialize..."
-      sleep 15
-      echo "K3s API Server is ready!"
-    EOT
+    command     = local.is_windows ? "[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }; Write-Host 'Waiting for K3s API Server to be ready at https://${aws_instance.cdo-03-instance.public_ip}:6443 ...'; for ($i=0; $i -lt 60; $i++) { try { $res = Invoke-WebRequest -Uri https://${aws_instance.cdo-03-instance.public_ip}:6443/ping -UseBasicParsing -TimeoutSec 2; if ($res.Content -eq 'pong') { Write-Host 'K3s API Server port is open! Waiting 15 seconds for API groups to fully initialize...'; Start-Sleep -Seconds 15; Write-Host 'K3s API Server is ready!'; exit 0 } } catch {} Start-Sleep -Seconds 5 }; Write-Host 'Timeout waiting for K3s'; exit 1" : "echo 'Waiting for K3s API Server to be ready at https://${aws_instance.cdo-03-instance.public_ip}:6443 ...'; until curl -k -s https://${aws_instance.cdo-03-instance.public_ip}:6443/ping | grep -q 'pong'; do sleep 5; done; echo 'K3s API Server port is open! Waiting 15 seconds for API groups to fully initialize...'; sleep 15; echo 'K3s API Server is ready!'"
+    interpreter = local.is_windows ? ["powershell", "-Command"] : ["/bin/sh", "-c"]
   }
 }
 
