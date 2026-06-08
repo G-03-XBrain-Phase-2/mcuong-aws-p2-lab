@@ -16,7 +16,7 @@ Báo cáo dưới đây trình bày chi tiết các quyết định thiết kế
 
 Dưới đây là sơ đồ luồng traffic từ người dùng qua ALB và cấu trúc quản lý hạ tầng bằng Terraform do em thiết kế:
 
-![Sơ đồ kiến trúc hệ thống](diagram_architect.png)---
+![Sơ đồ kiến trúc hệ thống](diargram_architect_1.png)---
 
 ## II. GIẢI TRÌNH CÁC QUYẾT ĐỊNH THIẾT KẾ (TỰ DO QUYẾT ĐỊNH)
 

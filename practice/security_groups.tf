@@ -64,3 +64,29 @@ resource "aws_security_group" "cdo-03-ec2-sg" {
     Name = "${var.group_id}-ec2-sg"
   }
 }
+
+resource "aws_security_group" "cdo-03-rds-sg" {
+  name        = "${var.group_id}-rds-sg"
+  description = "Security group cho RDS trong private subnet"
+  vpc_id      = aws_vpc.cdo-03-vpc.id
+
+  # Chỉ cho phép kết nối cổng 3306 từ EC2 Security Group
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.cdo-03-ec2-sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.group_id}-rds-sg"
+  }
+}
+
